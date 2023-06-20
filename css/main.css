@@ -1,0 +1,49 @@
+html {
+  font-size: 62.5%;
+  font-family: "Montserrat", sans-serif;
+  scroll-behavior: smooth;
+}
+
+header nav.navbar {
+  background-color: #000;
+  padding: 12px 6px;
+}
+header nav.navbar .container-fluid .navbar-brand {
+  color: #fff;
+  padding-right: 100px;
+  font-size: 1.8rem;
+}
+header nav.navbar .container-fluid form {
+  flex: 1;
+}
+header nav.navbar .container-fluid form input.form-control {
+  padding: 8px 16px;
+  font-size: 1.6rem;
+  background-color: #000;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+header nav.navbar .container-fluid form input.form-control:focus {
+  outline: none;
+  background-color: #fff;
+}
+header nav.navbar .container-fluid form button.btn {
+  border: none;
+  font-size: 1.6rem;
+  transition: all 0.5s;
+  color: #fff;
+}
+
+main .container-fluid .addUser__content .row .col-4 .form-group {
+  align-items: center;
+}
+main .container-fluid .addUser__content .row .col-4 .form-group label.col-sm-2 {
+  font-size: 1.6rem;
+}
+main .container-fluid .addUser__content .row .col-4 .form-group .col-sm-10 select {
+  padding: 10px;
+  font-size: 1.6rem;
+}
+main .userTable .table thead tr th {
+  padding: 10px;
+  font-size: 1.2rem;
+}/*# sourceMappingURL=main.css.map */
