@@ -8,63 +8,6 @@ export default class ListPerson {
   constructor() {
     this.arrListPerson = [];
   }
-  // nhanGiaTri(select){
-  //   document.getElementById(select).value
-  // }
-  // themPerson(person) {
-  //     if(this.nhanGiaTri('loaiPerson') === 'hocVien'&&
-  //     !person.personID||
-  //     !person.hoTen||
-  //     !person.email||
-  //     !person.diaChi||
-  //     !person.loaiPerson||
-  //     !person.diemHoa||
-  //     !person.diemLy||
-  //     !person.diemToan
-  //     ){
-  //         alert('asdadas')
-  //         return
-  //     }else{
-  //     this.arrListPerson.push(person);
-  //     alert('bạn đã thêm thành công')
-  //   }
-
-  //   if(this.nhanGiaTri('loaiPerson') === 'nhanVien'&&
-  //   !person.personID||
-  //   !person.hoTen||
-  //   !person.email||
-  //   !person.diaChi||
-  //   !person.loaiPerson||
-  //   !person.soNgayLam||
-  //   !person.luongNgay
-  //   ){
-  //       alert('asdadas')
-  //       return
-  //     }else{
-  //     this.arrListPerson.push(person);
-  //    alert('bạn đã thêm thành công')
-  // }
-
-  // if(this.nhanGiaTri('loaiPerson') === 'khachHang'&&
-  // !person.personID||
-  // !person.hoTen||
-  // !person.email||
-  // !person.diaChi||
-  // !person.loaiPerson||
-  // !person.tenCty||
-  // !person.giaTriHoaDon||
-  // !person.danhGia
-  // ){
-  //     alert('asdadas')
-  //     return
-  //   }else{
-  //     this.arrListPerson.push(person);
-  //     alert('bạn đã thêm thành công')
-  //   }
-  // }
-// themPerson(person) {
-//     this.arrListPerson.push(person);
-//   }
 nhanGiaTri(select) {
   return document.getElementById(select).value;
 }
@@ -317,4 +260,132 @@ if(!addressRegex.test(person.diaChi)){
     this.renderPerson();
     // return sortedNames;
   };  
+
+// filter hocVien
+filterPersonHocVien() {
+  let arrLocPerson = this.arrListPerson.filter(item => item.loaiPerson === 'hocVien');
+  let content = arrLocPerson.map(item => {
+    let person = new Person();
+    Object.assign(person, item);
+    let { personID, hoTen, email, diaChi, loaiPerson, diemTB, tinhLuong, tenCty, giaTriHoaDon, danhGia } = person;
+    let danhGiaPerson = '';
+    if (danhGia === 'danhGia1') {
+      danhGiaPerson = 'Rất tốt';
+    } else if (danhGia === 'danhGia2') {
+      danhGiaPerson = 'Tốt';
+    } else if (danhGia === 'danhGia3') {
+      danhGiaPerson = 'Tàm tạm';
+    } else if (danhGia === 'danhGia4') {
+      danhGiaPerson = 'Cần cải thiện';
+    } else if (danhGia === 'danhGia5') {
+      danhGiaPerson = 'Tệ';
+    }
+
+    return `
+      <tr>
+        <td>${personID}</td>
+        <td>${hoTen}</td>
+        <td>${email}</td>
+        <td>${diaChi}</td>
+        <td>${loaiPerson === 'hocVien' ? diemTB() : 'X'}</td>
+        <td>${loaiPerson === 'nhanVien' ? tinhLuong() : 'X'}</td>
+        <td>${loaiPerson === 'khachHang' ? tenCty : 'X'}</td>
+        <td>${loaiPerson === 'khachHang' ? giaTriHoaDon : 'X'}</td>
+        <td>${loaiPerson === 'khachHang' ? danhGiaPerson : 'X'}</td>
+        <td>
+          <button class="btn btn-danger" onclick="xoaPerson('${personID}')">Xoá</button>
+          <button class="btn btn-warning" onclick="layThongTinPerson('${personID}')">Sửa</button>
+        </td>
+      </tr>
+    `;
+  }).join("");
+
+  document.getElementById('tbodyPerson').innerHTML = content;
+}
+
+
+// filter nhanVien
+filterPersonNhanVien() {
+  let arrLocPerson = this.arrListPerson.filter(item => item.loaiPerson === 'nhanVien');
+  let content = arrLocPerson.map(item => {
+    let person = new Person();
+    Object.assign(person, item);
+    let { personID, hoTen, email, diaChi, loaiPerson, diemTB, tinhLuong, tenCty, giaTriHoaDon, danhGia } = person;
+    let danhGiaVN = '';
+    if (danhGia === 'danhGia1') {
+      danhGiaVN = 'Rất tốt';
+    } else if (danhGia === 'danhGia2') {
+      danhGiaVN = 'Tốt';
+    } else if (danhGia === 'danhGia3') {
+      danhGiaVN = 'Bình thường';
+    } else if (danhGia === 'danhGia4') {
+      danhGiaVN = 'Không tốt';
+    } else if (danhGia === 'danhGia5') {
+      danhGiaVN = 'Tệ';
+    }
+
+    return `
+      <tr>
+        <td>${personID}</td>
+        <td>${hoTen}</td>
+        <td>${email}</td>
+        <td>${diaChi}</td>
+        <td>${loaiPerson === 'hocVien' ? diemTB() : 'X'}</td>
+        <td>${loaiPerson === 'nhanVien' ? tinhLuong() : 'X'}</td>
+        <td>${loaiPerson === 'khachHang' ? tenCty : 'X'}</td>
+        <td>${loaiPerson === 'khachHang' ? giaTriHoaDon : 'X'}</td>
+        <td>${loaiPerson === 'khachHang' ? danhGiaVN : 'X'}</td>
+        <td>
+          <button class="btn btn-danger" onclick="xoaPerson('${personID}')">Xoá</button>
+          <button class="btn btn-warning" onclick="layThongTinPerson('${personID}')">Sửa</button>
+        </td>
+      </tr>
+    `;
+  }).join("");
+
+  document.getElementById('tbodyPerson').innerHTML = content;
+}
+// filter khachHang
+filterPersonKhachHang() {
+  let arrLocPerson = this.arrListPerson.filter(item => item.loaiPerson === 'khachHang');
+  let content = arrLocPerson.map(item => {
+    let person = new Person();
+    Object.assign(person, item);
+    let { personID, hoTen, email, diaChi, loaiPerson, diemTB, tinhLuong, tenCty, giaTriHoaDon, danhGia } = person;
+    let danhGiaVN = '';
+    if (danhGia === 'danhGia1') {
+      danhGiaVN = 'Rất tốt';
+    } else if (danhGia === 'danhGia2') {
+      danhGiaVN = 'Tốt';
+    } else if (danhGia === 'danhGia3') {
+      danhGiaVN = 'Bình thường';
+    } else if (danhGia === 'danhGia4') {
+      danhGiaVN = 'Không tốt';
+    } else if (danhGia === 'danhGia5') {
+      danhGiaVN = 'Tệ';
+    }
+
+    return `
+      <tr>
+        <td>${personID}</td>
+        <td>${hoTen}</td>
+        <td>${email}</td>
+        <td>${diaChi}</td>
+        <td>${loaiPerson === 'hocVien' ? diemTB() : 'X'}</td>
+        <td>${loaiPerson === 'nhanVien' ? tinhLuong() : 'X'}</td>
+        <td>${loaiPerson === 'khachHang' ? tenCty : 'X'}</td>
+        <td>${loaiPerson === 'khachHang' ? giaTriHoaDon : 'X'}</td>
+        <td>${loaiPerson === 'khachHang' ? danhGiaVN : 'X'}</td>
+        <td>
+          <button class="btn btn-danger" onclick="xoaPerson('${personID}')">Xoá</button>
+          <button class="btn btn-warning" onclick="layThongTinPerson('${personID}')">Sửa</button>
+        </td>
+      </tr>
+    `;
+  }).join("");
+
+  document.getElementById('tbodyPerson').innerHTML = content;
+}
+
+
 }

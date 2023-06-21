@@ -29,42 +29,6 @@ document.getElementById('btnThemPerson').addEventListener
               
         document.getElementById('btnClose').click();
     });
-
-// document.getElementById('loaiPerson').addEventListener('change', () => {
-//     let loaiPerson = document.getElementById('loaiPerson').value;
-//     if (loaiPerson == "hocVien") {
-//         document.getElementById('diemToan').disabled = false;
-//         document.getElementById('diemLy').disabled = false;
-//         document.getElementById('diemHoa').disabled = false;
-
-//         document.getElementById('soNgayLam').disabled = true;
-//         document.getElementById('luongNgay').disabled = true;
-//         document.getElementById('tenCty').disabled = true;
-//         document.getElementById('giaTriHoaDon').disabled = true;
-//         document.getElementById('danhGia').disabled = true;
-//     } else if (loaiPerson == "nhanVien") {
-//         document.getElementById('soNgayLam').disabled = false;
-//         document.getElementById('luongNgay').disabled = false;
-
-//         document.getElementById('diemToan').disabled = true;
-//         document.getElementById('diemLy').disabled = true;
-//         document.getElementById('diemHoa').disabled = true;
-//         document.getElementById('tenCty').disabled = true;
-//         document.getElementById('giaTriHoaDon').disabled = true;
-//         document.getElementById('danhGia').disabled = true;
-//     } else if (loaiPerson == "khachHang") {
-//         document.getElementById('tenCty').disabled = false;
-//         document.getElementById('giaTriHoaDon').disabled = false;
-//         document.getElementById('danhGia').disabled = false;
-
-//         document.getElementById('diemToan').disabled = true;
-//         document.getElementById('diemLy').disabled = true;
-//         document.getElementById('diemHoa').disabled = true;
-//         document.getElementById('soNgayLam').disabled = true;
-//         document.getElementById('luongNgay').disabled = true;
-//     }
-// });
-
 // xoá Person
 window.xoaPerson = (idPerson) => {
     listPerson.xoaPerson(idPerson);
@@ -92,13 +56,32 @@ document.getElementById('btnCapNhatPerson').onclick = () => {
 
 // Sắp xếp person
 document.getElementById('sapXep').onclick = () => {
-    // let noe = [listPerson.layLocal()];
-    // console.log(noe);
     listPerson.sortNames();
-    // console.log(name);
-}
+    listPerson.renderPerson();
 
+}
+// Lọc person
 document.getElementById('locPerson').onclick = () => {
-    listPerson.filterPerson();
+
+
+    let locPerson = document.getElementById('sepLoai').value * 1;
+
+    if (locPerson == 1) {
+        listPerson.filterPersonHocVien();
+    } else if (locPerson == 2) {
+        listPerson.filterPersonNhanVien();
+    } else if (locPerson == 3) {
+        listPerson.filterPersonKhachHang();
+    }
+}
+// reset
+document.getElementById('reset').onclick = () => {
+    listPerson.renderPerson();
 }
  
+// tìm kiếm person
+window.timKiemPerson = (event) => {
+    let value = event.target.value;
+    listPerson.timKiemPerson(value);
+
+};
