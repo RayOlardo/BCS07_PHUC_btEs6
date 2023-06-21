@@ -74,14 +74,15 @@ document.getElementById('locPerson').onclick = () => {
         listPerson.filterPersonKhachHang();
     }
 }
-// reset
-document.getElementById('reset').onclick = () => {
-    listPerson.renderPerson();
-}
- 
-// tìm kiếm person
-window.timKiemPerson = (event) => {
-    let value = event.target.value;
-    listPerson.timKiemPerson(value);
 
-};
+// tìm kiém person
+// function timKiemPerson(event){
+//     let value = event.target.value
+//     console.log(value)
+// }
+window.timKiemPerson =(event) => {
+    let value = event.target.value
+    // listPerson.timKiemPerson(value);
+    console.log(value)
+    listPerson.timKiemPerson(value)
+}

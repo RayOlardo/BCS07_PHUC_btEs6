@@ -2,6 +2,7 @@ import Person from "./Person.js";
 import { HocVien } from "./Person.js";
 import { NhanVien } from "./Person.js";
 import { KhachHang } from "./Person.js";
+import removeVietnameseTones from "../controller/helper.js";
 
 
 export default class ListPerson {
@@ -311,17 +312,16 @@ filterPersonNhanVien() {
     let person = new Person();
     Object.assign(person, item);
     let { personID, hoTen, email, diaChi, loaiPerson, diemTB, tinhLuong, tenCty, giaTriHoaDon, danhGia } = person;
-    let danhGiaVN = '';
     if (danhGia === 'danhGia1') {
-      danhGiaVN = 'Rất tốt';
+      danhGiaPerson = 'Rất tốt';
     } else if (danhGia === 'danhGia2') {
-      danhGiaVN = 'Tốt';
+      danhGiaPerson = 'Tốt';
     } else if (danhGia === 'danhGia3') {
-      danhGiaVN = 'Bình thường';
+      danhGiaPerson = 'Tàm tạm';
     } else if (danhGia === 'danhGia4') {
-      danhGiaVN = 'Không tốt';
+      danhGiaPerson = 'Cần cải thiện';
     } else if (danhGia === 'danhGia5') {
-      danhGiaVN = 'Tệ';
+      danhGiaPerson = 'Tệ';
     }
 
     return `
@@ -334,7 +334,7 @@ filterPersonNhanVien() {
         <td>${loaiPerson === 'nhanVien' ? tinhLuong() : 'X'}</td>
         <td>${loaiPerson === 'khachHang' ? tenCty : 'X'}</td>
         <td>${loaiPerson === 'khachHang' ? giaTriHoaDon : 'X'}</td>
-        <td>${loaiPerson === 'khachHang' ? danhGiaVN : 'X'}</td>
+        <td>${loaiPerson === 'khachHang' ? danhGiaPerson : 'X'}</td>
         <td>
           <button class="btn btn-danger" onclick="xoaPerson('${personID}')">Xoá</button>
           <button class="btn btn-warning" onclick="layThongTinPerson('${personID}')">Sửa</button>
@@ -352,17 +352,16 @@ filterPersonKhachHang() {
     let person = new Person();
     Object.assign(person, item);
     let { personID, hoTen, email, diaChi, loaiPerson, diemTB, tinhLuong, tenCty, giaTriHoaDon, danhGia } = person;
-    let danhGiaVN = '';
     if (danhGia === 'danhGia1') {
-      danhGiaVN = 'Rất tốt';
+      danhGiaPerson = 'Rất tốt';
     } else if (danhGia === 'danhGia2') {
-      danhGiaVN = 'Tốt';
+      danhGiaPerson = 'Tốt';
     } else if (danhGia === 'danhGia3') {
-      danhGiaVN = 'Bình thường';
+      danhGiaPerson = 'Tàm tạm';
     } else if (danhGia === 'danhGia4') {
-      danhGiaVN = 'Không tốt';
+      danhGiaPerson = 'Cần cải thiện';
     } else if (danhGia === 'danhGia5') {
-      danhGiaVN = 'Tệ';
+      danhGiaPerson = 'Tệ';
     }
 
     return `
@@ -375,7 +374,7 @@ filterPersonKhachHang() {
         <td>${loaiPerson === 'nhanVien' ? tinhLuong() : 'X'}</td>
         <td>${loaiPerson === 'khachHang' ? tenCty : 'X'}</td>
         <td>${loaiPerson === 'khachHang' ? giaTriHoaDon : 'X'}</td>
-        <td>${loaiPerson === 'khachHang' ? danhGiaVN : 'X'}</td>
+        <td>${loaiPerson === 'khachHang' ? danhGiaPerson : 'X'}</td>
         <td>
           <button class="btn btn-danger" onclick="xoaPerson('${personID}')">Xoá</button>
           <button class="btn btn-warning" onclick="layThongTinPerson('${personID}')">Sửa</button>
@@ -387,5 +386,13 @@ filterPersonKhachHang() {
   document.getElementById('tbodyPerson').innerHTML = content;
 }
 
+timKiemPerson(keyword){
+  let newKeyword = removeVietnameseTones(keyword);
+  let arrTimKiem = this.arrListPerson.filter((item) =>{
+    let tenTimKiem = removeVietnameseTones(item.hoTen);
+    return tenTimKiem.toLowerCase().trim().includes(newKeyword)
+  });
+  console.log(arrTimKiem)
+};
 
-}
+};
